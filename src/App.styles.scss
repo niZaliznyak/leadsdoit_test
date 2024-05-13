@@ -1,0 +1,65 @@
+@import '@/assets/scss/variables';
+
+.main-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.nav-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  nav {
+    margin: 0.5rem;
+    a {
+      display: inline-block;
+      padding: 5px 15px;
+      border: $border-content;
+      background-color: $content-background;
+      font-weight: 500;
+      color: black;
+      text-decoration: none;
+      text-transform: capitalize;
+      box-shadow: $outter-shadow;
+
+      &:first-child {
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+
+      &.active {
+        background-color: #ccc;
+        box-shadow: $inner-shadow;
+      }
+
+      &:hover {
+        box-shadow: $inner-shadow;
+        color: rgb(2, 96, 96);
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulsating-image {
+  animation: pulse 2s infinite alternate;
+}

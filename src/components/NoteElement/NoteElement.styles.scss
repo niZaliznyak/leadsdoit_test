@@ -1,0 +1,36 @@
+@import '@/assets/scss/variables';
+
+.note-card {
+  min-height: 200px;
+  background-color: $content-background;
+  border-radius: $border-radius-xl;
+  border: $border-content;
+  box-shadow: $outter-shadow;
+  padding: $inner-padding;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-title {
+    display: flex;
+    justify-content: space-between;
+
+    .favicon {
+      filter: grayscale(100%);
+      &:hover {
+        filter: grayscale(0);
+      }
+      &.active {
+        filter: grayscale(0);
+      }
+    }
+  }
+}
+
+.edited-date {
+  opacity: 0.5;
+  font-weight: 500;
+  font-size: 0.8rem;
+  font-style: italic;
+}
