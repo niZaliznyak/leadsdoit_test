@@ -36,7 +36,7 @@ export default {
     <div class="edit-card-bottom">
       <div>
         <label for="category-select">Category:</label>
-        <select id="category-select" v-model="description">
+        <select id="category-select" v-model="category">
           <option value="default">🏠 Default</option>
           <option value="work">💼 Work</option>
           <option value="appointment">🗓️ Appointment</option>
