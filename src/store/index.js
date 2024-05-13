@@ -1,10 +1,12 @@
 import { createStore } from 'vuex'
 
-export const store = createStore({
+const initialState = localStorage.getItem('vue-notes')
+  ? JSON.parse(localStorage.getItem('vue-notes'))
+  : { notes: [] }
+
+const store = createStore({
   state() {
-    return {
-      notes: []
-    }
+    return initialState
   },
   mutations: {
     addNote(state, note) {
@@ -34,3 +36,13 @@ export const store = createStore({
     }
   }
 })
+
+const localStorageSaver = (state) => {
+  localStorage.setItem('vue-notes', JSON.stringify(state))
+}
+
+store.subscribe((mutation, state) => {
+  localStorageSaver(state)
+})
+
+export { store }
