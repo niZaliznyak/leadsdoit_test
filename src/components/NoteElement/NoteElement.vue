@@ -5,8 +5,8 @@ export default {
     title: String,
     description: String,
     category: String,
-    editDate: String,
-    creationDate: String,
+    editDate: Date,
+    creationDate: Date,
     isFavorite: Boolean
   },
   components: {
