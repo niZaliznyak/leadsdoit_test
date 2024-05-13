@@ -7,13 +7,13 @@ export const store = createStore({
     }
   },
   mutations: {
-    ADD_NOTE(state, note) {
+    addNote(state, note) {
       state.notes.unshift(note)
     },
-    REMOVE_NOTE(state, noteId) {
+    removeNote(state, noteId) {
       state.notes = state.notes.filter(({ id }) => id !== noteId)
     },
-    UPDATE_NOTE(state, payload) {
+    updateNote(state, payload) {
       const editedIndex = state.notes.findIndex(({ id }) => id === payload.id)
       if (editedIndex !== -1) {
         state.notes[editedIndex] = payload
@@ -21,11 +21,16 @@ export const store = createStore({
         state.notes.unshift(payload)
       }
     },
-    TOGGLE_NOTE_IS_FAVORITE(state, noteId) {
+    toggleNoteIsFavorite(state, noteId) {
       const edited = state.notes.find(({ id }) => id === noteId)
       if (edited) {
         edited.isFavorite = !edited.isFavorite
       }
+    }
+  },
+  getters: {
+    getNoteById: (state) => (id) => {
+      return state.notes.find((todo) => todo.id === id)
     }
   }
 })

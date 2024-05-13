@@ -12,14 +12,14 @@ export default {
     StyledButton
   },
   methods: {
-    ...mapMutations(['TOGGLE_NOTE_IS_FAVORITE', 'REMOVE_NOTE']),
+    ...mapMutations(['toggleNoteIsFavorite', 'removeNote']),
 
     onFavClick(id) {
-      this.TOGGLE_NOTE_IS_FAVORITE(id)
+      this.toggleNoteIsFavorite(id)
     },
 
     onDeleteClick(id) {
-      this.REMOVE_NOTE(id)
+      this.removeNote(id)
     },
 
     onEditClick(id) {

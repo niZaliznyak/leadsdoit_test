@@ -1,9 +1,15 @@
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import { v4 as uuidv4 } from 'uuid'
 import { StyledButton } from '@/components'
 
 import { NOTE_CATEGORIES } from '@/constants/note-categories'
+const defaultForm = {
+  title: '',
+  description: '',
+  category: NOTE_CATEGORIES[0],
+  isFavorite: false
+}
 
 export default {
   components: { StyledButton },
@@ -14,34 +20,46 @@ export default {
   },
   data() {
     return {
-      title: '',
-      description: '',
-      category: NOTE_CATEGORIES[0],
-      isFavorite: false
+      form: { ...defaultForm }
+    }
+  },
+
+  computed: {
+    isNew() {
+      return this.$route.path === '/edit/new'
+    },
+
+    editedNote() {
+      return this.getNoteById()(this.$route.params.id)
     }
   },
 
   methods: {
-    ...mapMutations(['ADD_NOTE', 'UPDATE_NOTE']),
+    ...mapMutations(['addNote', 'updateNote']),
+    ...mapGetters(['getNoteById']),
 
-    saveNote() {
-      this.ADD_NOTE({
+    onAddClick() {
+      const { title, description, category, isFavorite } = this.form
+      this.addNote({
         id: uuidv4(),
-        title: this.title,
-        description: this.description,
-        category: this.category,
+        title,
+        description,
+        category,
         creationDate: new Date(),
-        isFavorite: false
+        isFavorite
       })
-      this.clearForm()
       this.$router.push({ name: 'home' })
     },
 
-    clearForm() {
-      this.title = ''
-      this.description = ''
-      this.category = 'default'
-      this.isFavorite = false
+    onSaveClick() {
+      this.updateNote({ ...this.form, editDate: new Date() })
+      this.$router.push({ name: 'home' })
+    }
+  },
+
+  created() {
+    if (!this.isNew) {
+      this.form = this.editedNote ? { ...this.editedNote } : { ...defaultForm }
     }
   }
 }
@@ -50,27 +68,28 @@ export default {
 <template>
   <div class="edit-card">
     <label for="note-title">Title</label>
-    <input id="note-title" type="text" placeholder="Please enter title" v-model="title" />
+    <input id="note-title" type="text" placeholder="Please enter title" v-model="form.title" />
 
     <label for="note-description">Description</label>
     <textarea
       id="note-description"
       rows="6"
       placeholder="Please enter description"
-      v-model="description"
+      v-model="form.description"
     ></textarea>
 
     <div class="edit-card-bottom">
       <div>
         <label for="category-select">Category:</label>
-        <select id="category-select" v-model="category">
+        <select id="category-select" v-model="form.category">
           <option v-for="title in NOTE_CATEGORIES" :key="title" :value="title">
             {{ title }}
           </option>
         </select>
       </div>
 
-      <StyledButton @click="saveNote" color="success">Save</StyledButton>
+      <StyledButton v-if="isNew" @click="onAddClick" color="success">Add</StyledButton>
+      <StyledButton v-else @click="onSaveClick" color="success">Save Changes</StyledButton>
     </div>
   </div>
 </template>

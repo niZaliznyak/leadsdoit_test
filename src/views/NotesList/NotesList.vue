@@ -15,7 +15,7 @@ export default {
     ...mapState(['notes'])
   },
   methods: {
-    ...mapMutations(['TOGGLE_NOTE_IS_FAVORITE'])
+    ...mapMutations(['toggleNoteIsFavorite'])
   }
 }
 </script>
