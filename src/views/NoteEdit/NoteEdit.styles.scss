@@ -1,0 +1,30 @@
+@import '@/assets/scss/variables';
+
+.edit-card {
+  min-height: 200px;
+  background-color: $content-background;
+  border-radius: $border-radius-xl;
+  border: $border-content;
+  box-shadow: $outter-shadow;
+  padding: $inner-padding;
+  padding-bottom: 2rem;
+
+  input,
+  #note-description {
+    width: 100%;
+    border: $border-content;
+    border-radius: $border-radius;
+    padding-left: 1rem;
+    margin-bottom: 6px;
+  }
+
+  #category-select {
+    width: 150px;
+    margin-left: 6px;
+  }
+
+  &-bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+}
