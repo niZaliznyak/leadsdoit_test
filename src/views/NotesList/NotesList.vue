@@ -21,14 +21,23 @@ export default {
   data() {
     return {
       onlyFavorite: false,
-      selectedCategory: null
+      selectedCategory: null,
+      order: 'asc'
     }
   },
   computed: {
     ...mapState(['notes']),
 
+    sortedNotes() {
+      let ordered = this.notes.slice().sort((a, b) => a.title.localeCompare(b.title))
+      if (this.order === 'asc') {
+        return ordered
+      }
+      return ordered.reverse()
+    },
+
     filteredNotes() {
-      let filtered = this.notes
+      let filtered = this.sortedNotes
 
       if (this.onlyFavorite) {
         filtered = filtered.filter(({ isFavorite }) => isFavorite)
@@ -42,7 +51,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['toggleNoteIsFavorite'])
+    ...mapMutations(['toggleNoteIsFavorite']),
+
+    changeOrder() {
+      this.order = this.order === 'desc' ? 'asc' : 'desc'
+    }
   }
 }
 </script>
@@ -58,6 +71,14 @@ export default {
           {{ title }}
         </option>
       </select>
+      <button
+        title="order"
+        class="text-button"
+        :class="{ rotated: this.order === 'desc' }"
+        @click="changeOrder"
+      >
+        🔺
+      </button>
     </div>
     <div class="notes-list">
       <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />
