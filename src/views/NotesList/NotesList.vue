@@ -11,8 +11,20 @@ export default {
     StyledButton,
     RouterLink
   },
+  data() {
+    return {
+      onlyFavorite: false
+    }
+  },
   computed: {
-    ...mapState(['notes'])
+    ...mapState(['notes']),
+
+    filteredNotes() {
+      if (this.onlyFavorite) {
+        return this.notes.filter(({ isFavorite }) => isFavorite)
+      }
+      return this.notes
+    }
   },
   methods: {
     ...mapMutations(['toggleNoteIsFavorite'])
@@ -21,13 +33,19 @@ export default {
 </script>
 
 <template>
-  <div class="notes-list">
-    <NoteElement v-for="note in notes" :note="note" :key="note.id" />
-    <div v-if="notes.length === 0" class="empty-message">
-      <h3>You don't have any notes 🗿</h3>
-      <RouterLink to="/edit/new">
-        <StyledButton>Let's create one😎</StyledButton>
-      </RouterLink>
+  <div>
+    <div class="tools">
+      <input type="checkbox" id="only-favorite" v-model="onlyFavorite" />
+      <label for="only-favorite">Only favorite</label>
+    </div>
+    <div class="notes-list">
+      <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />
+      <div v-if="notes.length === 0" class="empty-message">
+        <h3>You don't have any notes 🗿</h3>
+        <RouterLink to="/edit/new">
+          <StyledButton>Let's create one😎</StyledButton>
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
