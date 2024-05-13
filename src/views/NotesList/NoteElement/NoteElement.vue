@@ -1,5 +1,6 @@
 <script>
-import { StyledButton } from '@/components/StyledButton'
+import { StyledButton } from '@/components'
+
 export default {
   props: {
     title: String,

@@ -1,5 +1,5 @@
 <script>
-import { NoteElement } from '@/components/NoteElement'
+import { NoteElement } from './NoteElement'
 
 export default {
   components: {
