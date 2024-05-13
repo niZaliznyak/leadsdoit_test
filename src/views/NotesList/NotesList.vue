@@ -17,16 +17,7 @@ export default {
 
 <template>
   <div class="notes-list">
-    <NoteElement
-      v-for="{ id, title, description, creationDate, editDate, category } in notes"
-      :key="id"
-      :id="id"
-      :title="title"
-      :category="category"
-      :description="description"
-      :creation-date="creationDate"
-      :edit-date="editDate"
-    />
+    <NoteElement v-for="note in notes" :note="note" :key="note.id" />
   </div>
 </template>
 

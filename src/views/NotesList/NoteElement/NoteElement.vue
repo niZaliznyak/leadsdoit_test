@@ -2,22 +2,36 @@
 import { mapMutations } from 'vuex'
 
 import { StyledButton } from '@/components'
+import { mapProp } from '@/utils/mapProp'
 
 export default {
   props: {
-    id: String,
-    title: String,
-    description: String,
-    category: String,
-    editDate: Date,
-    creationDate: Date,
-    isFavorite: Boolean
+    note: Object
   },
   components: {
     StyledButton
   },
   methods: {
-    ...mapMutations([''])
+    ...mapMutations(['TOGGLE_NOTE_IS_FAVORITE', 'REMOVE_NOTE']),
+
+    onFavClick(id) {
+      this.TOGGLE_NOTE_IS_FAVORITE(id)
+    },
+
+    onDeleteClick(id) {
+      this.REMOVE_NOTE(id)
+    }
+  },
+  computed: {
+    ...mapProp('note', [
+      'id',
+      'title',
+      'description',
+      'category',
+      'editDate',
+      'creationDate',
+      'isFavorite'
+    ])
   }
 }
 </script>
@@ -29,7 +43,13 @@ export default {
         <h2>{{ title }}</h2>
         <div>
           <span class="note-card-category">{{ `category: ${category}` }}</span>
-          <button class="text-button favicon" :class="{ active: isFavorite }">⭐</button>
+          <button
+            class="text-button favicon"
+            :class="{ active: isFavorite }"
+            @click="onFavClick(id)"
+          >
+            ⭐
+          </button>
         </div>
       </div>
       <h3>{{ description }}</h3>
@@ -42,7 +62,7 @@ export default {
         >
       </span>
       <div class="note-card-actions">
-        <StyledButton color="danger">Delete</StyledButton>
+        <StyledButton color="danger" @click="onDeleteClick(id)">Delete</StyledButton>
         <StyledButton>Edit</StyledButton>
       </div>
     </div>
