@@ -25,12 +25,16 @@ export default {
       <h3>{{ description }}</h3>
     </div>
     <div class="note-card-bottom">
-      <span>{{ `created: ${creationDate.toLocaleString()}` }}</span>
-      <span v-if="editDate" class="edited-date">
-        {{ ` (edited: ${editDate.toLocaleString()})` }}</span
-      >
-      <StyledButton color="danger">Delete</StyledButton>
-      <StyledButton>Edit</StyledButton>
+      <span>
+        {{ `created: ${creationDate.toLocaleString()}` }}
+        <span v-if="editDate" class="edited-date">
+          {{ ` (edited: ${editDate.toLocaleString()})` }}</span
+        >
+      </span>
+      <div class="note-card-actions">
+        <StyledButton color="danger">Delete</StyledButton>
+        <StyledButton>Edit</StyledButton>
+      </div>
     </div>
   </div>
 </template>
