@@ -15,7 +15,7 @@ export default {
 
     <nav>
       <RouterLink to="/" :class="{ active: $route.path === '/' }">📃 notes list</RouterLink>
-      <RouterLink to="/edit" :class="{ active: $route.path === '/edit' }"
+      <RouterLink to="/edit/new" :class="{ active: $route.path.includes('/edit') }"
         >➕ add/edit note</RouterLink
       >
     </nav>

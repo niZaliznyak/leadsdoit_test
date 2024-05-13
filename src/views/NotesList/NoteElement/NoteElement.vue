@@ -20,6 +20,10 @@ export default {
 
     onDeleteClick(id) {
       this.REMOVE_NOTE(id)
+    },
+
+    onEditClick(id) {
+      this.$router.push({ path: `/edit/${id}` })
     }
   },
   computed: {
@@ -63,7 +67,7 @@ export default {
       </span>
       <div class="note-card-actions">
         <StyledButton color="danger" @click="onDeleteClick(id)">Delete</StyledButton>
-        <StyledButton>Edit</StyledButton>
+        <StyledButton @click="onEditClick(id)">Edit</StyledButton>
       </div>
     </div>
   </div>
