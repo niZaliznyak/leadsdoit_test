@@ -1,8 +1,11 @@
 <script>
+import { mapMutations } from 'vuex'
+
 import { StyledButton } from '@/components'
 
 export default {
   props: {
+    id: String,
     title: String,
     description: String,
     category: String,
@@ -12,6 +15,9 @@ export default {
   },
   components: {
     StyledButton
+  },
+  methods: {
+    ...mapMutations([''])
   }
 }
 </script>

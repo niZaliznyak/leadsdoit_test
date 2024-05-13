@@ -1,20 +1,47 @@
 <script>
+import { mapMutations } from 'vuex'
+import { v4 as uuidv4 } from 'uuid'
 import { StyledButton } from '@/components'
+
+import { NOTE_CATEGORIES } from '@/constants/note-categories'
 
 export default {
   components: { StyledButton },
+  setup() {
+    return {
+      NOTE_CATEGORIES
+    }
+  },
   data() {
     return {
       title: '',
       description: '',
-      category: 'default',
+      category: NOTE_CATEGORIES[0],
       isFavorite: false
     }
   },
 
   methods: {
+    ...mapMutations(['ADD_NOTE', 'UPDATE_NOTE']),
+
     saveNote() {
-      console.log('note is saved')
+      this.ADD_NOTE({
+        id: uuidv4(),
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        creationDate: new Date(),
+        isFavorite: false
+      })
+      this.clearForm()
+      this.$router.push({ name: 'home' })
+    },
+
+    clearForm() {
+      this.title = ''
+      this.description = ''
+      this.category = 'default'
+      this.isFavorite = false
     }
   }
 }
@@ -37,9 +64,9 @@ export default {
       <div>
         <label for="category-select">Category:</label>
         <select id="category-select" v-model="category">
-          <option value="default">🏠 Default</option>
-          <option value="work">💼 Work</option>
-          <option value="appointment">🗓️ Appointment</option>
+          <option v-for="title in NOTE_CATEGORIES" :key="title" :value="title">
+            {{ title }}
+          </option>
         </select>
       </div>
 

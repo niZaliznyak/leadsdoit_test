@@ -1,9 +1,16 @@
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { NoteElement } from './NoteElement'
 
 export default {
   components: {
     NoteElement
+  },
+  computed: {
+    ...mapState(['notes'])
+  },
+  methods: {
+    ...mapMutations(['TOGGLE_NOTE_IS_FAVORITE'])
   }
 }
 </script>
@@ -11,12 +18,14 @@ export default {
 <template>
   <div class="notes-list">
     <NoteElement
-      v-for="num in 20"
-      :key="num"
-      :title="'I\'m note'"
-      :description="'description'"
-      :creation-date="new Date()"
-      :edit-date="new Date()"
+      v-for="{ id, title, description, creationDate, editDate, category } in notes"
+      :key="id"
+      :id="id"
+      :title="title"
+      :category="category"
+      :description="description"
+      :creation-date="creationDate"
+      :edit-date="editDate"
     />
   </div>
 </template>
