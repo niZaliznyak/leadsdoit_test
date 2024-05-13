@@ -5,25 +5,40 @@ import { RouterLink } from 'vue-router'
 import { NoteElement } from './NoteElement'
 import { StyledButton } from '@/components'
 
+import { NOTE_CATEGORIES } from '@/constants/note-categories'
+
 export default {
   components: {
     NoteElement,
     StyledButton,
     RouterLink
   },
+  setup() {
+    return {
+      NOTE_CATEGORIES
+    }
+  },
   data() {
     return {
-      onlyFavorite: false
+      onlyFavorite: false,
+      selectedCategory: null
     }
   },
   computed: {
     ...mapState(['notes']),
 
     filteredNotes() {
+      let filtered = this.notes
+
       if (this.onlyFavorite) {
-        return this.notes.filter(({ isFavorite }) => isFavorite)
+        filtered = filtered.filter(({ isFavorite }) => isFavorite)
       }
-      return this.notes
+
+      if (this.selectedCategory) {
+        filtered = filtered.filter(({ category }) => category === this.selectedCategory)
+      }
+
+      return filtered
     }
   },
   methods: {
@@ -37,6 +52,12 @@ export default {
     <div class="tools">
       <input type="checkbox" id="only-favorite" v-model="onlyFavorite" />
       <label for="only-favorite">Only favorite</label>
+      <select v-model="selectedCategory">
+        <option :value="null">All</option>
+        <option v-for="title in NOTE_CATEGORIES" :key="title" :value="title">
+          {{ title }}
+        </option>
+      </select>
     </div>
     <div class="notes-list">
       <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />

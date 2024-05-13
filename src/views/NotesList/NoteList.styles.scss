@@ -1,9 +1,16 @@
 .tools {
-  padding-left: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.3rem;
+
+  select {
+    border-radius: 10px;
+    margin-left: 0.5rem;
+    padding-left: 6px;
+  }
 }
 
 .notes-list {
-  height: calc(100vh - 153px);
+  height: calc(100vh - 160px);
   overflow-y: scroll;
 
   & > * {
