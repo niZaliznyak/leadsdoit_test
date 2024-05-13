@@ -21,16 +21,6 @@
   &-title {
     display: flex;
     justify-content: space-between;
-
-    .favicon {
-      margin-left: 0.4rem;
-      font-size: 1.2rem;
-      filter: grayscale(100%);
-
-      &.active {
-        filter: grayscale(0);
-      }
-    }
   }
 
   &-bottom {

@@ -1,7 +1,7 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import { StyledButton } from '@/components'
+import { StyledButton, FavoriteButton } from '@/components'
 import { mapProp } from '@/utils/mapProp'
 
 export default {
@@ -9,7 +9,8 @@ export default {
     note: Object
   },
   components: {
-    StyledButton
+    StyledButton,
+    FavoriteButton
   },
   methods: {
     ...mapMutations(['toggleNoteIsFavorite', 'removeNote']),
@@ -47,13 +48,7 @@ export default {
         <h2>{{ title }}</h2>
         <div>
           <span class="note-card-category">{{ `category: ${category}` }}</span>
-          <button
-            class="text-button favicon"
-            :class="{ active: isFavorite }"
-            @click="onFavClick(id)"
-          >
-            ⭐
-          </button>
+          <FavoriteButton :isActive="isFavorite" @click="onFavClick(id)"></FavoriteButton>
         </div>
       </div>
       <h3>{{ description }}</h3>

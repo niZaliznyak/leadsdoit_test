@@ -1,7 +1,7 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import { v4 as uuidv4 } from 'uuid'
-import { StyledButton } from '@/components'
+import { StyledButton, FavoriteButton } from '@/components'
 
 import { NOTE_CATEGORIES } from '@/constants/note-categories'
 const defaultForm = {
@@ -12,7 +12,7 @@ const defaultForm = {
 }
 
 export default {
-  components: { StyledButton },
+  components: { StyledButton, FavoriteButton },
   setup() {
     return {
       NOTE_CATEGORIES
@@ -54,6 +54,10 @@ export default {
     onSaveClick() {
       this.updateNote({ ...this.form, editDate: new Date() })
       this.$router.push({ name: 'home' })
+    },
+
+    onFavClick() {
+      this.form.isFavorite = !this.form.isFavorite
     }
   },
 
@@ -86,6 +90,7 @@ export default {
             {{ title }}
           </option>
         </select>
+        <FavoriteButton :isActive="form.isFavorite" @click="onFavClick"></FavoriteButton>
       </div>
 
       <StyledButton v-if="isNew" @click="onAddClick" color="success">Add</StyledButton>

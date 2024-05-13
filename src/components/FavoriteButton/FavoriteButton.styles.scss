@@ -1,0 +1,17 @@
+.text-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.favicon {
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+  filter: grayscale(100%);
+
+  &.active {
+    filter: grayscale(0);
+  }
+}
