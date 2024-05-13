@@ -12,11 +12,17 @@
   flex-direction: column;
   justify-content: space-between;
 
+  &-category {
+    opacity: 0.8;
+    font-size: 0.8rem;
+  }
+
   &-title {
     display: flex;
     justify-content: space-between;
 
     .favicon {
+      margin-left: 0.4rem;
       filter: grayscale(100%);
       &:hover {
         filter: grayscale(0);

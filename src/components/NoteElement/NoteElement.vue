@@ -20,7 +20,10 @@ export default {
     <div>
       <div class="note-card-title">
         <h2>{{ title }}</h2>
-        <button class="text-button favicon" :class="{ active: isFavorite }">⭐</button>
+        <div>
+          <span class="note-card-category">{{ `category: ${category}` }}</span>
+          <button class="text-button favicon" :class="{ active: isFavorite }">⭐</button>
+        </div>
       </div>
       <h3>{{ description }}</h3>
     </div>
