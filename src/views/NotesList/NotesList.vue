@@ -9,8 +9,10 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="notes-list">
     <NoteElement
+      v-for="num in 20"
+      :key="num"
       :title="'I\'m note'"
       :description="'description'"
       :creation-date="new Date()"
@@ -18,3 +20,7 @@ export default {
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import './NoteList.styles.scss';
+</style>

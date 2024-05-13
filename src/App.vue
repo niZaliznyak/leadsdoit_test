@@ -10,26 +10,18 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div class="main-container">
-      <header class="nav-header">
-        <img
-          alt="Vue logo"
-          class="pulsating-image"
-          src="@/assets/logo.svg"
-          width="60"
-          height="60"
-        />
+  <header class="nav-header">
+    <img alt="Vue logo" class="pulsating-image" src="@/assets/logo.svg" width="60" height="60" />
 
-        <nav>
-          <RouterLink to="/" :class="{ active: $route.path === '/' }">📃 notes list</RouterLink>
-          <RouterLink to="/edit" :class="{ active: $route.path === '/edit' }"
-            >➕ add/edit note</RouterLink
-          >
-        </nav>
-      </header>
-      <RouterView />
-    </div>
+    <nav>
+      <RouterLink to="/" :class="{ active: $route.path === '/' }">📃 notes list</RouterLink>
+      <RouterLink to="/edit" :class="{ active: $route.path === '/edit' }"
+        >➕ add/edit note</RouterLink
+      >
+    </nav>
+  </header>
+  <div class="main-container">
+    <RouterView />
   </div>
 </template>
 

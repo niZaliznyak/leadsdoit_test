@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import NotesList from '../views/NotesList.vue'
+import { NotesList } from '../views'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
