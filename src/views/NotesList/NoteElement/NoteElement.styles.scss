@@ -23,10 +23,9 @@
 
     .favicon {
       margin-left: 0.4rem;
+      font-size: 1.2rem;
       filter: grayscale(100%);
-      &:hover {
-        filter: grayscale(0);
-      }
+
       &.active {
         filter: grayscale(0);
       }
