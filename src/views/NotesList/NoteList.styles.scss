@@ -26,6 +26,9 @@
 .notes-list {
   height: calc(100vh - 160px);
   overflow-y: scroll;
+  &.hide-scroll {
+    overflow-y: hidden;
+  }
 
   & > * {
     margin-bottom: 12px;

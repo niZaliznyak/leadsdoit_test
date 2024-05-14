@@ -28,6 +28,10 @@ export default {
   computed: {
     ...mapState(['notes']),
 
+    isNoNotes() {
+      return this.notes.length === 0
+    },
+
     sortedNotes() {
       let ordered = this.notes.slice().sort((a, b) => a.title.localeCompare(b.title))
       if (this.order === 'asc') {
@@ -62,7 +66,7 @@ export default {
 
 <template>
   <div>
-    <div class="tools">
+    <div v-if="!isNoNotes" class="tools">
       <input type="checkbox" id="only-favorite" v-model="onlyFavorite" />
       <label for="only-favorite">Only favorite</label>
       <select v-model="selectedCategory">
@@ -80,9 +84,9 @@ export default {
         🔺
       </button>
     </div>
-    <div class="notes-list">
+    <div class="notes-list" :class="{ ['hide-scroll']: isNoNotes }">
       <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />
-      <div v-if="notes.length === 0" class="empty-message">
+      <div v-if="isNoNotes" class="empty-message">
         <h3>You don't have any notes 🗿</h3>
         <RouterLink to="/new">
           <StyledButton>Let's create one😎</StyledButton>
