@@ -10,17 +10,14 @@ const router = createRouter({
       component: NotesList
     },
     {
-      path: '/edit',
-      children: [
-        {
-          path: ':id',
-          component: NoteEdit
-        },
-        {
-          path: 'new',
-          component: NoteEdit
-        }
-      ]
+      path: '/edit/:id',
+      name: 'edit',
+      component: NoteEdit
+    },
+    {
+      path: '/new',
+      name: 'new',
+      component: NoteEdit
     }
   ]
 })

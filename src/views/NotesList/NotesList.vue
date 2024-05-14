@@ -84,7 +84,7 @@ export default {
       <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />
       <div v-if="notes.length === 0" class="empty-message">
         <h3>You don't have any notes 🗿</h3>
-        <RouterLink to="/edit/new">
+        <RouterLink to="/new">
           <StyledButton>Let's create one😎</StyledButton>
         </RouterLink>
       </div>

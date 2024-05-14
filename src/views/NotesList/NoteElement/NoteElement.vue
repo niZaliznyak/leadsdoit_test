@@ -56,10 +56,8 @@ export default {
     </div>
     <div class="note-card-bottom">
       <span>
-        {{ `created: ${creationDate.toLocaleString()}` }}
-        <span v-if="editDate" class="edited-date">
-          {{ ` (edited: ${editDate.toLocaleString()})` }}</span
-        >
+        {{ `created: ${creationDate}` }}
+        <span v-if="editDate" class="edited-date"> {{ ` (edited: ${editDate})` }}</span>
       </span>
       <div class="note-card-actions">
         <StyledButton color="danger" @click="onDeleteClick(id)">Delete</StyledButton>

@@ -26,7 +26,7 @@ export default {
 
   computed: {
     isNew() {
-      return this.$route.path === '/edit/new'
+      return this.$route.path === '/new'
     },
 
     editedNote() {
@@ -40,19 +40,21 @@ export default {
 
     onAddClick() {
       const { title, description, category, isFavorite } = this.form
+      const currrentDate = new Date()
       this.addNote({
         id: uuidv4(),
         title,
         description,
         category,
-        creationDate: new Date(),
+        creationDate: currrentDate.toLocaleString(),
         isFavorite
       })
       this.$router.push({ name: 'home' })
     },
 
     onSaveClick() {
-      this.updateNote({ ...this.form, editDate: new Date() })
+      const currrentDate = new Date()
+      this.updateNote({ ...this.form, editDate: currrentDate.toLocaleString() })
       this.$router.push({ name: 'home' })
     },
 
