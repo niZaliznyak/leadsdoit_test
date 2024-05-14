@@ -12,6 +12,18 @@ export default {
     StyledButton,
     FavoriteButton
   },
+
+  computed: {
+    ...mapProp('note', [
+      'id',
+      'title',
+      'description',
+      'category',
+      'editDate',
+      'creationDate',
+      'isFavorite'
+    ])
+  },
   methods: {
     ...mapMutations(['toggleNoteIsFavorite', 'removeNote']),
 
@@ -26,17 +38,6 @@ export default {
     onEditClick(id) {
       this.$router.push({ path: `/edit/${id}` })
     }
-  },
-  computed: {
-    ...mapProp('note', [
-      'id',
-      'title',
-      'description',
-      'category',
-      'editDate',
-      'creationDate',
-      'isFavorite'
-    ])
   }
 }
 </script>
