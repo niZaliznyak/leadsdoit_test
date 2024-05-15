@@ -74,10 +74,17 @@ export default {
 <template>
   <div class="edit-card">
     <label for="note-title">Title</label>
-    <input id="note-title" type="text" placeholder="Please enter title" v-model="form.title" />
+    <input
+      id="note-title"
+      type="text"
+      placeholder="Please enter title"
+      v-model="form.title"
+      @keyup.enter="$refs.textAreaRef.focus()"
+    />
 
     <label for="note-description">Description</label>
     <textarea
+      ref="textAreaRef"
       id="note-description"
       rows="6"
       placeholder="Please enter description"
