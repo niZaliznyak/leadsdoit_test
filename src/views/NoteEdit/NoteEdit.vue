@@ -46,7 +46,7 @@ export default {
         title,
         description,
         category,
-        creationDate: currrentDate.toLocaleString(),
+        creationDate: currrentDate.toISOString(),
         isFavorite
       })
       this.$router.push({ name: 'home' })
@@ -54,7 +54,7 @@ export default {
 
     onSaveClick() {
       const currrentDate = new Date()
-      this.updateNote({ ...this.form, editDate: currrentDate.toLocaleString() })
+      this.updateNote({ ...this.form, editDate: currrentDate.toISOString() })
       this.$router.push({ name: 'home' })
     },
 

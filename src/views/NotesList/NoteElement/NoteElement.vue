@@ -1,5 +1,6 @@
 <script>
 import { mapMutations } from 'vuex'
+import { parseISO } from 'date-fns'
 
 import { StyledButton, FavoriteButton } from '@/components'
 import { mapProp } from '@/utils/mapProp'
@@ -37,6 +38,10 @@ export default {
 
     onEditClick(id) {
       this.$router.push({ path: `/edit/${id}` })
+    },
+
+    parseDate(dateISO) {
+      return parseISO(dateISO).toLocaleString()
     }
   }
 }
@@ -56,8 +61,8 @@ export default {
     </div>
     <div class="note-card-bottom">
       <span>
-        {{ `created: ${creationDate}` }}
-        <span v-if="editDate" class="edited-date"> {{ ` (edited: ${editDate})` }}</span>
+        {{ `created: ${parseDate(creationDate)}` }}
+        <span v-if="editDate" class="edited-date"> {{ ` (edited: ${parseDate(editDate)})` }}</span>
       </span>
       <div class="note-card-actions">
         <StyledButton color="danger" @click="onDeleteClick(id)">Delete</StyledButton>

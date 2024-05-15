@@ -1,6 +1,10 @@
 .tools {
-  margin-left: 1rem;
-  margin-bottom: 0.3rem;
+  margin: 0 1.5rem 0.3rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  & > div {
+    display: flex;
+  }
 
   select {
     border-radius: 10px;

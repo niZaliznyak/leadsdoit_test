@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { RouterLink } from 'vue-router'
+import { compareAsc, compareDesc, parseISO } from 'date-fns'
 
 import { NoteElement } from './NoteElement'
 import { StyledButton } from '@/components'
@@ -22,7 +23,8 @@ export default {
     return {
       onlyFavorite: false,
       selectedCategory: null,
-      order: 'asc'
+      order: 'asc',
+      orderBy: 'title'
     }
   },
   computed: {
@@ -33,9 +35,22 @@ export default {
     },
 
     sortedNotes() {
-      let ordered = this.notes.slice().sort((a, b) => a.title.localeCompare(b.title))
+      let ordered = this.notes.slice()
+      if (this.orderBy === 'title') {
+        ordered.sort((a, b) => a.title.localeCompare(b.title))
+        return this.order === 'asc' ? ordered : ordered.reverse()
+      }
 
-      return this.order === 'asc' ? ordered : ordered.reverse()
+      const sortFunc = this.order === 'asc' ? compareDesc : compareAsc
+
+      ordered.sort((a, b) => {
+        const dateA = a.editDate ? a.editDate : a.creationDate
+        const dateB = b.editDate ? b.editDate : b.creationDate
+
+        return sortFunc(parseISO(dateA), parseISO(dateB))
+      })
+
+      return ordered
     },
 
     filteredNotes() {
@@ -65,23 +80,34 @@ export default {
 <template>
   <div>
     <div v-if="!isNoNotes" class="tools">
-      <input type="checkbox" id="only-favorite" v-model="onlyFavorite" />
-      <label for="only-favorite">Only favorite</label>
-      <select v-model="selectedCategory">
-        <option :value="null">All</option>
-        <option v-for="title in NOTE_CATEGORIES" :key="title" :value="title">
-          {{ title }}
-        </option>
-      </select>
-      <button
-        title="order"
-        class="text-button"
-        :class="{ rotated: this.order === 'desc' }"
-        @click="changeOrder"
-      >
-        🔺
-      </button>
+      <div>
+        <button
+          title="order"
+          class="text-button"
+          :class="{ rotated: this.order === 'desc' }"
+          @click="changeOrder"
+        >
+          🔺
+        </button>
+        <span>Order by:</span>
+        <input type="radio" value="title" v-model="orderBy" id="radio-title" />
+        <label for="radio-title">note title</label>
+        <input type="radio" value="date" v-model="orderBy" id="radio-date" />
+        <label for="radio-date">creation date</label>
+      </div>
+
+      <div>
+        <select v-model="selectedCategory">
+          <option :value="null">All</option>
+          <option v-for="title in NOTE_CATEGORIES" :key="title" :value="title">
+            {{ title }}
+          </option>
+        </select>
+        <input type="checkbox" id="only-favorite" v-model="onlyFavorite" />
+        <label for="only-favorite">Only favorite</label>
+      </div>
     </div>
+
     <div class="notes-list" :class="{ ['hide-scroll']: isNoNotes }">
       <NoteElement v-for="note in filteredNotes" :note="note" :key="note.id" />
       <div v-if="isNoNotes" class="empty-message">
