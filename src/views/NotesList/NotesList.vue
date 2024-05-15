@@ -8,6 +8,9 @@ import { StyledButton } from '@/components'
 
 import { NOTE_CATEGORIES } from '@/constants/note-categories'
 
+const ASC = 'asc'
+const DESC = 'desc'
+
 export default {
   components: {
     NoteElement,
@@ -23,7 +26,7 @@ export default {
     return {
       onlyFavorite: false,
       selectedCategory: null,
-      order: 'asc',
+      order: ASC,
       orderBy: 'title'
     }
   },
@@ -38,10 +41,10 @@ export default {
       let ordered = this.notes.slice()
       if (this.orderBy === 'title') {
         ordered.sort((a, b) => a.title.localeCompare(b.title))
-        return this.order === 'asc' ? ordered : ordered.reverse()
+        return this.order === ASC ? ordered : ordered.reverse()
       }
 
-      const sortFunc = this.order === 'asc' ? compareDesc : compareAsc
+      const sortFunc = this.order === ASC ? compareDesc : compareAsc
 
       ordered.sort((a, b) => {
         const dateA = a.editDate ? a.editDate : a.creationDate
@@ -72,7 +75,7 @@ export default {
         return this.orderBy
       },
       set(value) {
-        this.order = 'asc'
+        this.order = ASC
         this.orderBy = value
       }
     }
@@ -81,7 +84,7 @@ export default {
     ...mapMutations(['toggleNoteIsFavorite']),
 
     changeOrder() {
-      this.order = this.order === 'desc' ? 'asc' : 'desc'
+      this.order = this.order === DESC ? ASC : DESC
     }
   }
 }
@@ -95,7 +98,7 @@ export default {
         <input
           type="radio"
           id="radio-title"
-          :class="{ rotate: order === 'desc' && orderBy === 'title' }"
+          :class="{ rotate: order === DESC && orderBy === 'title' }"
           value="title"
           v-model="orderByModel"
           @click="changeOrder"
@@ -104,7 +107,7 @@ export default {
         <input
           type="radio"
           id="radio-date"
-          :class="{ rotate: order === 'desc' && orderBy === 'date' }"
+          :class="{ rotate: order === DESC && orderBy === 'date' }"
           value="date"
           v-model="orderByModel"
           @click="changeOrder"
