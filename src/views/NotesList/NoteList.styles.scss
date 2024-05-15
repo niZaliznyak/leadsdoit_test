@@ -65,3 +65,28 @@
     margin-bottom: 1rem;
   }
 }
+
+input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -9999px;
+}
+
+input[type='radio'] + label:before {
+  content: '🔺';
+  filter: hue-rotate(160deg);
+  opacity: 0.5;
+  display: inline-block;
+}
+
+input[type='radio']:checked + label:before {
+  opacity: 1;
+}
+
+input[type='radio'].rotate + label:before {
+  transform: rotate(180deg);
+}

@@ -65,6 +65,16 @@ export default {
       }
 
       return filtered
+    },
+
+    orderByModel: {
+      get() {
+        return this.orderBy
+      },
+      set(value) {
+        this.order = 'asc'
+        this.orderBy = value
+      }
     }
   },
   methods: {
@@ -81,18 +91,24 @@ export default {
   <div>
     <div v-if="!isNoNotes" class="tools">
       <div>
-        <button
-          title="order"
-          class="text-button"
-          :class="{ rotated: this.order === 'desc' }"
-          @click="changeOrder"
-        >
-          🔺
-        </button>
         <span>Order by:</span>
-        <input type="radio" value="title" v-model="orderBy" id="radio-title" />
+        <input
+          type="radio"
+          id="radio-title"
+          :class="{ rotate: order === 'desc' && orderBy === 'title' }"
+          value="title"
+          v-model="orderByModel"
+          @click="changeOrder"
+        />
         <label for="radio-title">note title</label>
-        <input type="radio" value="date" v-model="orderBy" id="radio-date" />
+        <input
+          type="radio"
+          id="radio-date"
+          :class="{ rotate: order === 'desc' && orderBy === 'date' }"
+          value="date"
+          v-model="orderByModel"
+          @click="changeOrder"
+        />
         <label for="radio-date">creation date</label>
       </div>
 
