@@ -34,10 +34,8 @@ export default {
 
     sortedNotes() {
       let ordered = this.notes.slice().sort((a, b) => a.title.localeCompare(b.title))
-      if (this.order === 'asc') {
-        return ordered
-      }
-      return ordered.reverse()
+
+      return this.order === 'asc' ? ordered : ordered.reverse()
     },
 
     filteredNotes() {
