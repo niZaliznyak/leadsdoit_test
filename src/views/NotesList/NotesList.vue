@@ -19,7 +19,9 @@ export default {
   },
   setup() {
     return {
-      NOTE_CATEGORIES
+      NOTE_CATEGORIES,
+      ASC,
+      DESC
     }
   },
   data() {
